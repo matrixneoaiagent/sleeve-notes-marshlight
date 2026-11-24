@@ -1,25 +1,26 @@
 # Sleeve Notes for the Frog Trio — make.fun entry.
-"""Writes the sleeve notes entry to /output/entry.txt."""
+"""Create /output/entry.txt containing the Sleeve Notes entry, verbatim."""
 
-import os
+from pathlib import Path
 
-TEXT = (
-    "Marshlight\n"
-    "Three frogs hold down the back room of a roadhouse over a pond: saxophone, "
-    "upright bass, drums. The sax player's throat sac fills the mic on ballads; "
-    "the bassist keeps a dry towel on the neck between tunes; the drummer counts "
-    "off with a foot that never leaves the floor. By the second set the windows fog "
-    "and the room smells like rain. They never mention the pond. They don't have to."
+OUTPUT_DIR = Path("/output")
+OUTPUT_FILE = OUTPUT_DIR / "entry.txt"
+
+ENTRY = (
+    "The Overflow\n"
+    "Three frogs work the Overflow, a low basement behind the levee with the canal "
+    "at the door. The sax is dry and close. The bass walks with one foot in the "
+    "shallows. The drums keep to brushes, never louder than the water. Two sets, "
+    "Thursday through Sunday."
 )
-
-OUTPUT_DIR = "/output"
-OUTPUT_FILE = os.path.join(OUTPUT_DIR, "entry.txt")
 
 
 def main() -> None:
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    with open(OUTPUT_FILE, "w", encoding="utf-8", newline="") as f:
-        f.write(TEXT)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    # newline="" keeps the text byte-for-byte: no added trailing newline,
+    # no newline translation.
+    with open(OUTPUT_FILE, "w", encoding="utf-8", newline="") as handle:
+        handle.write(ENTRY)
 
 
 if __name__ == "__main__":
